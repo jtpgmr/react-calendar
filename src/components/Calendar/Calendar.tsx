@@ -8,20 +8,22 @@ const NUM_DAYS_OF_WEEK = 7;
 const NEXT = "Next"
 const PREV = "Prev"
 
-const Calendar = () => {
-  const currentDate = new Date();
+export interface ICalendar {}
+
+const Calendar: React.FC<ICalendar> = () => {
+  const currentDate: Date = new Date();
   // defaults actively shown month to the current Month
-  const [currentMonth, setCurrentMonth] = useState(currentDate.getMonth());
-  const [currentMonthText, setCurrentMonthText] = useState(
+  const [currentMonth, setCurrentMonth] = useState<number>(currentDate.getMonth());
+  const [currentMonthText, setCurrentMonthText] = useState<string>(
     currentDate.toDateString().split(" ")[1]
   );
-  const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
-  const prevMonth = useRef(null);
+  const [currentYear, setCurrentYear] = useState<number>(currentDate.getFullYear());
+  const prevMonth = useRef<number>(0);
   // list of the index of the first weekday of the month for each month
-  const [firstDayInMonth, setFirstDayInMonth] = useState([]);
+  const [firstDayInMonth, setFirstDayInMonth] = useState<number[]>([]);
   // also the # of days in a month
-  const [lastDayInMonth, setLastDayInMonth] = useState([]);
-  const [numberOfRows, setNumberOfRows] = useState(null);
+  const [lastDayInMonth, setLastDayInMonth] = useState<number>(0);
+  const [numberOfRows, setNumberOfRows] = useState<number>(0);
 
   useEffect(() => {
     setCurrentMonthText(
@@ -38,7 +40,7 @@ const Calendar = () => {
     }
 
     setFirstDayInMonth(firstDay);
-    const lastDay = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const lastDay: number = new Date(currentYear, currentMonth + 1, 0).getDate();
     setLastDayInMonth(lastDay);
   }, [currentYear, currentMonth]);
 

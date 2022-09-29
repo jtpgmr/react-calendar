@@ -4,14 +4,22 @@ import styles from "../../styles/global";
 const NUM_DAYS_OF_WEEK = 7;
 const FIRST_DAY = 1;
 
-const CalendarRow = ({
+export interface ICalendarRow{
+  firstWeekdayOfMonth: number,
+  lastDayInMonth: number,
+  row: number,
+  currentMonth: number,
+  currentYear: number,
+}
+
+const CalendarRow: React.FC<ICalendarRow> = ({
   firstWeekdayOfMonth,
   lastDayInMonth,
   row,
   currentMonth,
   currentYear,
 }) => {
-  const currentDate = new Date().getDate();
+  const currentDate: number = new Date().getDate();
 
   // list of data cells (<td></td>) for each day of the month
   let daySlots = [];
@@ -20,8 +28,6 @@ const CalendarRow = ({
   }
 
   // POPULATES THE FIRST ROW
-  // for values whose index is lower than the index of the first day of, they are given blank td's
-  // if the first day of the month is Thurs, Sun to Wed will be blank
   if (!row) {
     for (let i = 0; i < firstWeekdayOfMonth; i++) {
       daySlots.push(
@@ -41,8 +47,7 @@ const CalendarRow = ({
     );
 
     let populatedSlotsInFirstRow = 7 - daySlots.length;
-    // console.log(daySlots)
-    // console.log(populatedSlotsInFirstRow)
+
     for (let i = 1; i <= populatedSlotsInFirstRow; i++) {
       let j = i + 1;
       daySlots.push(
